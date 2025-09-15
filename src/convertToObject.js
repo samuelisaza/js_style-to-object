@@ -16,10 +16,19 @@ function convertToObject(sourceString) {
       return element.length > 0;
     })
     .map((element) => {
-      return element.split(':');
+      const idx = element.indexOf(':');
+      const key = element.slice(0, idx).trim();
+      const value = element.slice(idx + 1).trim();
+
+      return [key, value];
     })
     .reduce((acc, [key, value]) => {
-      acc[key.trim()] = value.trim();
+      const property = (key || '').trim();
+      const val = (value || '').trim();
+
+      if (property && val) {
+        acc[property] = val;
+      }
 
       return acc;
     }, {});
