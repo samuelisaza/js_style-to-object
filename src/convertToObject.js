@@ -17,10 +17,15 @@ function convertToObject(sourceString) {
     })
     .map((element) => {
       const idx = element.indexOf(':');
-      const key = element.slice(0, idx).trim();
-      const value = element.slice(idx + 1).trim();
 
-      return [key, value];
+      if (idx >= 0) {
+        const key = element.slice(0, idx).trim();
+        const value = element.slice(idx + 1).trim();
+
+        return [key, value];
+      } else {
+        return null;
+      }
     })
     .reduce((acc, [key, value]) => {
       const property = (key || '').trim();
